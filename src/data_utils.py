@@ -9,13 +9,11 @@ from keras.preprocessing import image_dataset_from_directory
 
 from config import BATCH_SIZE, CLASSES, IMG_SIZE, IMAGES_PATH, PROJECT_ROOT, DATA_ZIP_PATH
 
-
 def extract_dataset():
     """Extract the archived dataset into the project root."""
     with ZipFile(DATA_ZIP_PATH, "r") as zip_file:
         zip_file.extractall(PROJECT_ROOT)
         print("Dataset extracted successfully.")
-
 
 def visualize_dataset():
     """Display a small sample from each class to validate the dataset."""
@@ -32,7 +30,6 @@ def visualize_dataset():
             ax[i].imshow(img)
             ax[i].axis("off")
         plt.show()
-
 
 def load_datasets():
     """Create training and validation datasets from the image folders."""

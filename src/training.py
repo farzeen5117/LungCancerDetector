@@ -9,7 +9,6 @@ from keras.callbacks import EarlyStopping, ReduceLROnPlateau
 from callback import customCallback
 from config import CLASSES, EPOCHS
 
-
 def compile_model(model):
     """Compile the model with the chosen optimizer and loss function."""
     model.compile(
@@ -18,7 +17,6 @@ def compile_model(model):
         metrics=["accuracy"],
     )
     return model
-
 
 def train_model(model, train_ds, validation_ds):
     """Train the model and return the training history."""
@@ -41,13 +39,11 @@ def train_model(model, train_ds, validation_ds):
     )
     return history
 
-
 def plot_history(history):
     """Plot accuracy and validation accuracy over time."""
     history_df = pd.DataFrame(history.history)
     history_df.loc[:, ["accuracy", "val_accuracy"]].plot()
     plt.show()
-
 
 def evaluate_model(model, validation_ds):
     """Print a classification report for the validation data."""

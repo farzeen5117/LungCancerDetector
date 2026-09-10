@@ -3,7 +3,6 @@ from keras import layers
 
 from config import IMG_SIZE
 
-
 def build_model():
     """Create the CNN model used for lung cancer classification."""
     data_augmentation = keras.Sequential([

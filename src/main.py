@@ -6,7 +6,6 @@ from training import compile_model, evaluate_model, plot_history, train_model
 
 warnings.filterwarnings("ignore")
 
-
 if __name__ == "__main__":
     extract_dataset()
     visualize_dataset()
