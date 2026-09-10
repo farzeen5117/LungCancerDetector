@@ -3,20 +3,20 @@ from zipfile import ZipFile
 from pathlib import Path
 
 # Image processing tools for loading and preparing image data
-from PIL import Image
+from PIL import Image # type: ignore
 
 # Data handling and analysis libraries used for dataset inspection and metrics
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn import metrics
+import numpy as np # type: ignore
+import pandas as pd # type: ignore
+import matplotlib.pyplot as plt # type: ignore
+from sklearn import metrics # type: ignore
 
 # Deep learning libraries for building and training the image classification model
-import tensorflow as tf
-import keras
-from keras import layers
-from keras.preprocessing import image_dataset_from_directory as image_dataset_from_directory
-from keras.callbacks import EarlyStopping, ReduceLROnPlateau
+import tensorflow as tf # type: ignore
+import keras # type: ignore
+from keras import layers # type: ignore
+from keras.preprocessing import image_dataset_from_directory as image_dataset_from_directory # type: ignore
+from keras.callbacks import EarlyStopping, ReduceLROnPlateau # type: ignore
 
 # Custom training callback for early stopping 
 # when validation accuracy is sufficiently high (90%)
@@ -59,7 +59,7 @@ for category in classes:
 # These values control how the images are resized and grouped during training.
 IMG_SIZE = 128
 BATCH_SIZE = 16
-EPOCHS = 10
+EPOCHS = 30
 
 # Split the dataset into training and validation subsets using the directory structure
 # loads images directly from the class folders and labels them by folder name
@@ -96,8 +96,18 @@ validation_ds = validation_ds.cache().prefetch(buffer_size=AUTOTUNE)
 # Each convolutional layer learns visual features from the input images, while the
 # pooling layers reduce spatial dimensions and make the model more efficient.
 
+data_augmentation = keras.Sequential([
+    layers.RandomFlip("horizontal_and_vertical"),  # Randomly flip images to augment the dataset
+    layers.RandomRotation(0.1),  # Randomly rotate images to make the model invariant to orientation
+    layers.RandomZoom(0.1),  # Randomly zoom in/out to simulate different scales
+    layers.RandomContrast(0.1)  # Randomly adjust contrast to improve robustness to lighting conditions
+])
+
 model = keras.models.Sequential([  # Sequential stacks layers one after another.
     
+    layers.Rescaling(1.0 / 255, input_shape=(IMG_SIZE, IMG_SIZE, 3)),  # Normalize pixel values to [0, 1]
+    data_augmentation,
+
     # First convolutional layer: detects low-level patterns such as edges and textures.
     layers.Conv2D(32, (5, 5), activation='relu', padding='same', input_shape=(IMG_SIZE, IMG_SIZE, 3)),
 

@@ -1,4 +1,4 @@
-import tensorflow as tf
+import tensorflow as tf # type: ignore
 
 class customCallback(tf.keras.callbacks.Callback):
     ''' Stops training when validation accuracy reaches 90% '''
