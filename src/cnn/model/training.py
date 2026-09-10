@@ -1,13 +1,12 @@
 import tensorflow as tf
-from tensorflow import keras
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn import metrics
 from keras.callbacks import EarlyStopping, ReduceLROnPlateau
 
-from callback import customCallback
-from config import CLASSES, EPOCHS
+from utils.callback import customCallback
+from utils.config import CLASSES, EPOCHS
 
 def compile_model(model):
     """Compile the model with the chosen optimizer and loss function."""

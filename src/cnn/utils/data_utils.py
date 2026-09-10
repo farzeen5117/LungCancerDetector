@@ -7,7 +7,7 @@ from PIL import Image
 import tensorflow as tf
 from keras.preprocessing import image_dataset_from_directory
 
-from config import BATCH_SIZE, CLASSES, IMG_SIZE, IMAGES_PATH, PROJECT_ROOT, DATA_ZIP_PATH
+from utils.config import BATCH_SIZE, CLASSES, IMG_SIZE, IMAGES_PATH, PROJECT_ROOT, DATA_ZIP_PATH
 
 def extract_dataset():
     """Extract the archived dataset into the project root."""
